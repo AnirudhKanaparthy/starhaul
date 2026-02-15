@@ -1,0 +1,30 @@
+# For the yaml API I am thinking something like this should suffice
+
+hauler_capacity: 4
+locations:
+  - jupiter
+  - mars
+  - pluto
+hauler_start_location: jupiter
+
+# I am assuming the different locations are all reachabel from one another
+distances:
+  jupiter:
+    mars: 2
+    pluto: 3
+  mars:
+    pluto: 4
+
+# No support for complicated tasks yet. Separate them out for now.
+tasks:
+  - from: jupiter
+    to: pluto
+    items:
+      - volume: 2
+      - volume: 2
+      - volume: 3
+  - from: pluto
+    to: jupiter
+    items:
+      - volume: 8
+      - volume: 3
