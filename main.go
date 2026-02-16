@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"math"
+	"os"
 
-	"github.com/AnirudhKanaparthy/starhaul/matrix"
 	"github.com/AnirudhKanaparthy/starhaul/sim"
 )
 
@@ -64,22 +64,30 @@ func Search(simulation *sim.Simulation, visited map[string]bool) (float64, []sim
 	return smallestCost, smallestCostActions
 }
 
+func printUsage() {
+	fmt.Printf("Usage: %v <filename>\n", os.Args[0])
+}
+
 func main() {
-	simulation, err := sim.MakeSimulation(
-		4,
-		matrix.MakeSymmetricMatrix([]int{0, 2, 2, 0, 3, 0}),
-		[]int{2, 4, 1},
-		0,
-		map[int]sim.Task{
-			0: sim.MakeTask(0, 1),
-			1: sim.MakeTask(0, 2),
-			2: sim.MakeTask(1, 2),
-		},
-	)
+	if len(os.Args) < 2 {
+		printUsage()
+		return
+	}
+
+	filepath := os.Args[1]
+	data, err := os.ReadFile(filepath)
 	if err != nil {
 		panic(err)
 	}
-	_ = simulation
+	config, err := sim.DeserilizeJsonBytes(data)
+	if err != nil {
+		panic(err)
+	}
+
+	simulation, err := sim.MakeSimWithConfig(config)
+	if err != nil {
+		panic(err)
+	}
 
 	visited := make(map[string]bool, 0)
 

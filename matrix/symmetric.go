@@ -4,8 +4,13 @@ type SymmetricMatrix[T any] struct {
 	data []T
 }
 
-func MakeSymmetricMatrix[T any](data []T) SymmetricMatrix[T] {
+func MakeSymmWithData[T any](data []T) SymmetricMatrix[T] {
 	return SymmetricMatrix[T]{data}
+}
+
+func MakeSymmWithOrder[T any](order int) SymmetricMatrix[T] {
+	size := (order*order + order) / 2
+	return SymmetricMatrix[T]{make([]T, size)}
 }
 
 func (mat *SymmetricMatrix[T]) Order() int {
@@ -35,4 +40,9 @@ func (mat *SymmetricMatrix[T]) Index(i int, j int) int {
 func (mat *SymmetricMatrix[T]) At(i int, j int) T {
 	idx := mat.Index(i, j)
 	return mat.data[idx]
+}
+
+func (mat *SymmetricMatrix[T]) Set(i int, j int, v T) {
+	idx := mat.Index(i, j)
+	mat.data[idx] = v
 }

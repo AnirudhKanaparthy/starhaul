@@ -130,7 +130,7 @@ type Simulation struct {
 	state     State
 }
 
-func MakeSimulation(haulerCapacity int,
+func MakeSim(haulerCapacity int,
 	distancesBetweenLocations matrix.SymmetricMatrix[int],
 	items []int,
 	haulerStartLocation int,
@@ -163,6 +163,15 @@ func MakeSimulation(haulerCapacity int,
 	}
 
 	return simulation, nil
+}
+
+func MakeSimWithConfig(config SimulationConfig) (Simulation, error) {
+	return MakeSim(config.HaulerCapacity,
+		config.DistancesBetweenLocations,
+		config.Items,
+		config.HaulerStartLocation,
+		config.Tasks,
+	)
 }
 
 func (sim *Simulation) State() State {

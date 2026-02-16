@@ -1,0 +1,37 @@
+{
+  "HaulerCapacity": 8,
+  "Locations": [
+    "jupiter",
+    "mars",
+    "pluto"
+  ],
+  "HaulerStartLocation": "jupiter",
+  "Distances": {
+    "jupiter": {
+      "mars": 2,
+      "pluto": 3
+    },
+    "mars": {
+      "pluto": 4
+    }
+  },
+  "Tasks": [
+    {
+      "From": "jupiter",
+      "To": "pluto",
+      "Items": [
+        {"Volume": 2},
+        {"Volume": 2},
+        {"Volume": 3}
+      ]
+    },
+    {
+      "From": "pluto",
+      "To": "mars",
+      "Items": [
+        {"Volume": 8},
+        {"Volume": 3}
+      ]
+    }
+  ]
+}
